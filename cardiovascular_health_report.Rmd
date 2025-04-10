@@ -1,0 +1,82 @@
+---
+title: "Cardiovascular Report"
+author: "Eseza Kironde"
+date: "2025-02-06"
+output: html_document
+---
+
+# Introduction
+
+The Heart Attack Risk Assessment Dataset is a synthetically generated medical dataset with 1,000 patient records designed for cardiovascular health analysis and risk prediction. The dataset has ten variables including demographic information (age and sex), cholesterol measurements (total, LDL, and HDL), blood pressure readings (systolic and diastolic), and binary indicators for critical health factors (smoking status, diabetes presence, and heart attack history).
+In this R Markdown report, I create an analysis that begins with a Table 1 of the descriptive statistics and distributions of each health metric, focusing on their relationships with heart attack history. The report then describes a boxplot using ggplot2 to explore patterns in total cholesterol levels between patients with and without heart attacks. Finally, I run a regression model to assess heart attack risk based on the health indicators.
+
+Setting the chunk options
+```{r, set-chunk-options, include=FALSE}
+library(knitr)
+library(here)
+library(labelled)
+
+opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+```
+
+
+setwd("C:/Users/nesez/OneDrive/Desktop/Data_Science_Toolkit/Final_Project")
+
+Reading in the data
+```{r, cleaning-data}
+
+library(here)
+here::i_am("cardiovascular_health_report.Rmd")
+
+data <- readRDS(
+  file = here::here("output/clean_data.rds")
+)
+
+```
+
+
+
+Creating table 1
+```{r, table1}
+
+table_one <- readRDS(
+  file = here::here("output/table_one.rds")
+)
+
+#print the object
+table_one
+
+```
+
+This Table 1 tells us the summary statistics of the distribution of cardiovascular risk factors among people of different demographic and clinical characteristics.
+It shows that heart attack patients have significantly worse profiles for all risk factors. The main takeaways are that heart attack patients tend to be older males with higher cholesterol levels, elevated blood pressure, and much higher rates of smoking and diabetes compared to those without heart attacks.
+
+
+
+
+# Boxplot
+
+```{r, boxplot}
+#Going to include graphics function from knitr package
+
+knitr::include_graphics(
+  here::here("output/boxplot.png")
+)
+
+```
+
+This boxplot compares the distribution of total cholesterol levels between people with and without heart attacks. 
+It shows that heart attack patients tend to have higher cholesterol levels than those without heart attacks. The median cholesterol levels for heart attack patients was about 217 mg/dL, compared to about 198mg/dL for those without heart attacks. 
+This pattern suggests that patients with higher cholesterol levels have increased risk of getting heart attacks. However, there are some outliers, which suggests that there are other factors that influence heart attack occurrence.
+
+
+
+
+
+
+
+
+
+
+
