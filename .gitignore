@@ -1,0 +1,5 @@
+output/*.rds
+output/*.png
+/*.html
+Kironde-final_project2_rmarkdown.Rmd
+Kironde-final_project2_rmarkdown.html
