@@ -18,7 +18,7 @@ table_one <- data |>
   modify_spanning_header(c("stat_1", "stat_2") ~ "Heart Attack Status") |>
   add_overall() |>
   add_p()
-
+table_one
 #Save table
 
 saveRDS(

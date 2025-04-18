@@ -17,6 +17,9 @@ output/table_one.rds: code/01_make_table1.R output/clean_data.rds
 output/boxplot.png: code/02_make_boxplot.R output/clean_data.rds
 	Rscript code/02_make_boxplot.R
 
+.PHONY: install
+install:
+	Rscript -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv"); renv::restore()'
 
 .PHONY: descriptive_analysis
 descriptive_analysis: output/table_one.rds output/boxplot.png
