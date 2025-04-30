@@ -7,7 +7,6 @@ descriptive_analysis
 output/clean_data.rds: code/00_clean_data.R rawdata/heart_attack_risk.csv
 	Rscript code/00_clean_data.R
 
-
 ##output/table_one.rds: This is the table1 summary stats
 output/table_one.rds: code/01_make_table1.R output/clean_data.rds
 	Rscript code/01_make_table1.R
@@ -28,4 +27,20 @@ descriptive_analysis: output/table_one.rds output/boxplot.png
 clean: 
 	rm -f output/*.rds 
 	rm -f output/*.png 
+	rm -f *.html
 	rm -f output/*.html
+	rm -f report/*.html
+	
+####### DOCKER ASSOCIATED RULES #######
+
+# Rule to build the report using Docker Hub cardiovascular_image
+# MacOS/Linux machines
+.PHONY: docker_report
+docker_report:
+	docker run -v "$$(pwd)/report":/home/rstudio/project/report esezak/cardiovascular_image
+
+
+# building the report: Windows-specific target using Git Bash
+.PHONY: docker_report_windows
+docker_report_windows:
+	docker run -v "/$$(pwd)/report":/home/rstudio/project/report esezak/cardiovascular_image
