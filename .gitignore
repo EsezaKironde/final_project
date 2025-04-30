@@ -4,4 +4,5 @@ output/*.png
 Kironde-final_project2_rmarkdown.Rmd
 Kironde-final_project2_rmarkdown.html
 .Rproj.user
-project_notes.Rmd 
+project_notes.Rmd
+.RData
