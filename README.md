@@ -1,54 +1,136 @@
-# README for final project
+# README Cardiovascular Risk Prediction Project
+
+## Overview
+
+This R Markdown project analyzes a synthetic medical dataset to explore cardiovascular health risk prediction. The analysis includes data cleaning, descriptive statistics, visualization, and the rendering of a reproducible report.
+
+- **Sample size**: 100 patients  
+- **Date of analysis**: February 6, 2025  
+- **DockerHub Image**: [`esezak/cardiovascular_image`](https://hub.docker.com/r/esezak/cardiovascular_image)
+- **Github Repository**: [`Cardiovascular_Project_Github`](https://github.com/EsezaKironde/final_project)
+
+---
+
+## Dataset Description
+
+The dataset contains the following variables:
+
+| Variable         | Description                                                |
+|------------------|------------------------------------------------------------|
+| `x`              | Biological sex (0 = Female, 1 = Male)                       |
+| `total_cholesterol` | Total cholesterol level (mg/dL)                          |
+| `ldl`            | LDL cholesterol (mg/dL)                                    |
+| `hdl`            | HDL cholesterol (mg/dL)                                    |
+| `systolic_bp`    | Systolic blood pressure (mmHg)                             |
+| `diastolic_bp`   | Diastolic blood pressure (mmHg)                            |
+| `smoking`        | Smoking status (0 = Non-Smoker, 1 = Smoker)                |
+| `diabetes`       | Diabetes status (0 = No, 1 = Yes)                           |
+| `heart_attack`   | History of heart attack (0 = No, 1 = Yes)                  |
+
+---
+
+
+## Repository structure
+
+```
+.
+├── code/                           # R scripts for each step of analysis
+│   ├── 00_clean_data.R            # Cleans the raw data
+│   ├── 01_make_table1.R           # Creates descriptive statistics table
+│   ├── 02_make_boxplot.R          # Creates visualization of cholesterol by heart attack status
+│   └── 03_render_report.R         # Renders the final report
+│
+├── rawdata/
+│   └── heart_attack_risk.csv      # Raw input dataset
+│
+├── output/                         # Generated outputs
+│   ├── clean_data.rds             # Processed dataset
+│   ├── table_one.rds              # Descriptive statistics table
+│   └── boxplot.png                # Visualization of cholesterol by heart attack status
+│
+├── report/                         # Directory for compiled report (created by Docker)
+│
+├── cardiovascular_health_report.Rmd # Main R markdown document
+├── Dockerfile                      # Instructions for building Docker image
+├── Makefile                        # Automates workflow
+└── README.md                       # This file
+
+```
 
 ------------------------------------------------------------------------
 
-This R markdown project performs an analysis of a synthetic medical data set that focuses on cardiovascular health risk prediction
-Sample size: 100 patients
-Date of  analysis: 02/06/2025
 
 
-### Dataset details
-x: Biological sex (0 = Female, 1 = Male)
-total_cholesterol: Total cholesterol level (mg/dL)
-ldl: Low-Density Lipoprotein (LDL) cholesterol (mg/dL)
-hdl: High-Density Lipoprotein (HDL) cholesterol (mg/dL)
-systolic_bp: Systolic blood pressure (mmHg)
-diastolic_bp: Diastolic blood pressure (mmHg)
-smoking: Smoking status (0 = Non-Smoker, 1 = Smoker)
-diabetes: Diabetes status (0 = No, 1 = Yes)
-heart_attack: History of heart attack (0 = No, 1 = Yes)
+### Makefile Targets
+
+| Target                  | Description                          |
+|-------------------------|--------------------------------------|
+| `make`                  | Runs the entire pipeline locally     |
+| `make docker_report`    | macOS/Linux: Runs pipeline via Docker |
+| `make docker_report_windows` | Windows: Runs pipeline via Docker  |
 
 
-------------------------------------------------------------------------
+## Docker Instructions
 
-The files in this project directory (Final_Project) include:
+### Option 1: Run the Docker Image (Recommended)
 
-cardiovascular_health_report.Rmd: Assembles the whole report
-README.md: This file
-Makefile: Automates the workflow
+Use the pre-built Docker image on DockerHub.
 
-Directories:
+#### macOS/Linux
 
-rawdata/: Contains the raw data file heart_attack_risk.csv
-code/: Contains the R scripts
+```bash
+make docker_report
+# Or directly:
+docker run -v "$(pwd)/report":/home/rstudio/project/report esezak/cardiovascular_image
+```
 
-00_clean_data.R: Cleans and processes the raw data
-01_make_table1.R: Creates a descriptive statistics table
-02_make_boxplot.R: Creates a visualization of cholesterol by heart attack status
-03_render_report.R: Renders the full R Markdown report
+#### Windows (using Git Bash)
 
+```bash
+make docker_report_windows
+# Or directly:
+docker run -v "/$(pwd)/report":/home/rstudio/project/report esezak/cardiovascular_image
+```
 
-output/: Contains the generated outputs including:
+---
 
-clean_data.rds: Processed dataset
-table_one.rds: Descriptive statistics table
-boxplot.png: Visualization of total cholesterol by heart attack status
+### Option 2: Interactive RStudio (in browser)
+
+To launch a browser-based RStudio server:
+
+```bash
+#create a password of your own
+docker run -e PASSWORD="your_password" -p 8787:8787 esezak/cardiovascular_image /init
+```
+
+Then visit: `http://localhost:8787`
+
+- **Username**: `rstudio`  
+- **Password**: `your_password`
+
+---
+
+### Option 3: Local Development (without Docker)
+
+Run the analysis locally:
+
+```bash
+make
+```
+
+Or run step-by-step:
+
+```bash
+Rscript code/00_clean_data.R
+Rscript code/01_make_table1.R
+Rscript code/02_make_boxplot.R
+Rscript code/03_render_report.R
+```
 
   
-  
 ------------------------------------------------------------------------
 
-# DESCRIPTION OF WHAT EACH FILE IS DOING
+# Description of what each file is doing
 
 ## Code description
 
