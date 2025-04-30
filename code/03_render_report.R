@@ -12,7 +12,7 @@ data <- readRDS(
 library(rmarkdown)
 
 report_filename <- paste0(
-  "cardiovascular_report_",
+  "cardiovascular_health_report",
   ".html"
 )
 
